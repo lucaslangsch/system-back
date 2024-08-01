@@ -11,6 +11,7 @@ app.use(cors({
 
 app.use(express.json());
 
+app.post('/auth', userController.login);
 app.post('/users', userController.create);
 app.get('/users', userController.show);
 

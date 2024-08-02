@@ -2,7 +2,24 @@ const jwtUtils = require('../utils/jwt.util');
 const { userModel } = require('../db/models/index');
 
 const create = async (req, res) => {
-  return
+  const { email, password, name } = req.body;
+
+  if (!email || !password || !name) {
+    res.status(422).json({ status: "fail", data: 'Dados incompletos' });
+  }
+
+  try {
+    const [result] = await userModel.create(email, password, name);
+
+    const dataUser = { id: result.insertId, email };
+  
+    const token = jwtUtils.createToken(dataUser);
+  
+    const data = { ...dataUser, token }
+    return res.status(200).json({ status: 'success', data })
+  } catch (error) {
+    return res.status(500).json({ status: 'fail', data: error.message })
+  }
 };
 
 const update = async (req, res) => {
@@ -31,9 +48,11 @@ const show = async (req, res) => {
       throw new Error()
     }
 
-    const token = jwtUtils.createToken({ id: result[0].id, email: result[0].email })
+    const dataUser = { id: result[0].id, email: result[0].email };
 
-    const data = { ...result[0], token }
+    const token = jwtUtils.createToken(dataUser);
+
+    const data = { ...dataUser, token }
 
     res.status(200).json({ status: "success", data });
   } catch (error) {

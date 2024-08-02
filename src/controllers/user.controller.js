@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken')
+const jwtUtils = require('../utils/jwt.util');
 const { userModel } = require('../db/models/index');
 
 const create = async (req, res) => {
@@ -18,7 +18,7 @@ const show = async (req, res) => {
   }
  };
 
- const login = async (req, res) => {
+ const auth = async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -31,13 +31,12 @@ const show = async (req, res) => {
       throw new Error()
     }
 
-    const token = jwt.sign({ id: result[0].id, email: result[0].email }, 'supersegredo')
+    const token = jwtUtils.createToken({ id: result[0].id, email: result[0].email })
 
     const data = { ...result[0], token }
 
     res.status(200).json({ status: "success", data });
   } catch (error) {
-    console.log(error);
     res.status(422).json({ status: "fail", data: 'email ou senha inválido' });
   }
  }
@@ -46,5 +45,5 @@ module.exports = {
   create,
   update,
   show,
-  login,
+  auth,
 }

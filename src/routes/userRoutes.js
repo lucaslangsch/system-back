@@ -2,57 +2,11 @@ const route = require('express').Router();
 const { userController } = require('../controllers');
 
 route.get('/show', userController.showUsers);
+route.post('/register', userController.createUser);
 
 module.exports = route;
 
-// const router = express.Router();
 // const client = new mercadopago.MercadoPagoConfig({ accessToken: 'APP_USR-879614550147882-073014-fb9ab524901da795736e328ca2610c59-1924574034' });
-
-// router.get('/', async (req, res) => {
-//   try {
-//     const [result] = await userDB.show();
-//     res.status(200).json(result)
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: 'Ocorreu um erro ao cadastrar uma pessoa' });
-//   }
-// });
-
-// router.get('/create', async (req, res) => {
-//   try {
-//     const result = await userDB.createTable();
-//     res.status(200).json(result)
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: 'Ocorreu um erro ao cadastrar uma pessoa' });
-//   }
-// });
-
-// router.post('/createUser', async (req, res) => {
-//   const { name, email, password } = req.body;
-//   try {
-//     await userDB.createUser(name, email, password);
-//     res.status(200).json({status: "sucesso", data: name})
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: 'Ocorreu um erro ao cadastrar uma pessoa' });
-//   }
-// })
-
-// router.post('/login', async (req, res) => {
-//   const { email, password } = req.body;
-
-//   try {
-//     const [result] = await userDB.loginUser(email, password);
-//     if (result.length < 1) {
-//       throw new Error()
-//     }
-//     res.status(200).json({status: "sucesso", data: result[0]});
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ message: 'email ou senha inválido' });
-//   }
-// })
 
 // router.post('/mp', async (req, res) => {
 //   const { body } = req;

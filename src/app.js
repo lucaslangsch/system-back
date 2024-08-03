@@ -13,9 +13,9 @@ app.use(cors({
 
 app.use(express.json());
 
-app.post('/auth', userController.auth);
-app.post('/users', userController.create);
-app.use(authMiddleware);
+// app.post('/auth', userController.auth);
+// app.post('/users', userController.create);
+// app.use(authMiddleware);
 app.get('/users', userController.show);
 
 module.exports = app;

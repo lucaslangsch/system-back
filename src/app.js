@@ -1,9 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-
-const { userController } = require('./controllers');
-
-const { authMiddleware } = require('./middlewares');
+const { userRoutes } = require('./routes');
 
 const app = express();
 
@@ -12,10 +9,6 @@ app.use(cors({
 }));
 
 app.use(express.json());
-
-// app.post('/auth', userController.auth);
-// app.post('/users', userController.create);
-// app.use(authMiddleware);
-app.get('/users', userController.show);
+app.use('/user', userRoutes)
 
 module.exports = app;

@@ -1,5 +1,17 @@
-const jwtUtils = require('../utils/jwt.util');
-const { Users } = require('../db/models/index.js');
+// const jwtUtils = require('../utils/jwt.util');
+// const { Users } = require('../db/models/index.js');
+
+const { userService } = require('../services');
+const mapStatusHTTP = require('../utils/mapStatus.util.js');
+
+const showUsers = async (req, res) => {
+  const { status, data } = await userService.showUsers()
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
+module.exports = {
+  showUsers,
+};
 
 // const create = async (req, res) => {
 //   const { email, password, name } = req.body;
@@ -26,16 +38,16 @@ const { Users } = require('../db/models/index.js');
 //  return
 // };
 
-const show = async (req, res) => {
-  const users = await Users.findAll();
-  return res.status(200).json({ status: 'success', data: users })
+// const show = async (req, res) => {
+//   const users = await Users.findAll();
+//   return res.status(200).json({ status: 'success', data: users })
 
   // try {
   //   const [result] = await userModel.show()
   // } catch (error) {
     // return res.status(500).json({ status: 'fail', data: error.message })
   // }
- };
+//  };
 
 //  const auth = async (req, res) => {
 //   const { email, password } = req.body;
@@ -61,10 +73,3 @@ const show = async (req, res) => {
 //     res.status(422).json({ status: "fail", data: 'email ou senha inválido' });
 //   }
 //  }
-
-module.exports = {
-  // create,
-  // update,
-  show,
-  // auth,
-}

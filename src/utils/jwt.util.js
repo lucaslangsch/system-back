@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const secret = 'meusegredo';
 
 const createToken = (data) => {
-  const token = jwt.sign(data, secret);
+  const token = jwt.sign(data, secret, { expiresIn: "7d" });
   return token;
 };
 

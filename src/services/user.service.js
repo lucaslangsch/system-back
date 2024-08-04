@@ -16,18 +16,36 @@ const createUser = async (body) => {
 
   try {
     const user = await Users.create({ name, password, email });
-    if (!user) return { status: 'NOT_FOUND', data: { message: 'Não foi possível cadastrar' } };
-    
-    const data = { id: user.id, name: user.name, email: user.email };
+    if (!user) return { status: 'INVALID_VALUE', data: { message: 'Não foi possível cadastrar' } };
+ 
+    const data = { id: user.id, email: user.email };
     const token = jwtUtils.createToken(data);
 
     return { status: 'SUCCESSFUL', data: { ...data, token } };
   } catch (error) {
-    return { status: 'NOT_FOUND', data: { message: 'Email já cadastrado' } };
+    return { status: 'INVALID_VALUE', data: { message: 'Email já cadastrado' } };
   }
 };
+
+const login = async (body) => {
+  const { email, password } = body;
+  if (!email || !password) {
+    return { status: 'INVALID_VALUE', data: { message: 'Campos inválidos' } };
+  }
+
+  const user = await Users.findOne({ where: { email } });
+  if (!user || user.password !== password) {
+    return { status: 'UNAUTHORIZED', data: { message: 'Usuário ou senha inválidos' } };
+  }
+
+  const data = { id: user.id, email: user.email };
+  const token = jwtUtils.createToken(data);
+
+  return { status: 'SUCCESSFUL', data: { ...data, token } }; 
+}
 
 module.exports = {
   showUsers,
   createUser,
+  login,
 };

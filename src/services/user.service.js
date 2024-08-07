@@ -18,7 +18,7 @@ const createUser = async (body) => {
     const user = await Users.create({ name, password, email });
     if (!user) return { status: 'INVALID_VALUE', data: { message: 'Não foi possível cadastrar' } };
  
-    const data = { id: user.id, email: user.email };
+    const data = { id: user.id, email: user.email, name: user.name };
     const token = jwtUtils.createToken(data);
 
     return { status: 'SUCCESSFUL', data: { ...data, token } };
@@ -38,7 +38,7 @@ const login = async (body) => {
     return { status: 'UNAUTHORIZED', data: { message: 'Usuário ou senha inválidos' } };
   }
 
-  const data = { id: user.id, email: user.email };
+  const data = { id: user.id, email: user.email, name: user.name };
   const token = jwtUtils.createToken(data);
 
   return { status: 'SUCCESSFUL', data: { ...data, token } }; 

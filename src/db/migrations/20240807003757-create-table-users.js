@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     await queryInterface.createTable('users', {
       id: {
         type: Sequelize.INTEGER,
@@ -32,11 +32,24 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      purchase: {
+        type: Sequelize.DATE,
+      },
+      expiresIn: {
+        type: Sequelize.DATE,
+      },
+      planId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'plans',
+          key: 'id',
+        },
       }
     });
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('users');
   }
 };

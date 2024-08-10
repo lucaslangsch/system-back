@@ -5,19 +5,20 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('plans', {
       id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
+        type: Sequelize.STRING,
         primaryKey: true,
       },
-      planName: {
-        type: Sequelize.STRING(50),
+      modality: {
+        type: Sequelize.ENUM('online', 'presencial'),
         allowNull: false,
       },
-      active: {
-        type: Sequelize.BOOLEAN,
+      frequency: {
+        type: Sequelize.ENUM('anual', 'semestral', 'trimestral', 'mensal'),
         allowNull: false,
-        defaultValue: true,
+      },
+      type: {
+        type: Sequelize.STRING(45),
+        allowNull: false,
       },
     });
   },

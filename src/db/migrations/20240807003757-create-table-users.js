@@ -14,6 +14,10 @@ module.exports = {
         type: Sequelize.STRING(50),
         allowNull: false,
       },
+      lastName: {
+        type: Sequelize.STRING(50),
+        allowNull: false,
+      },
       email: {
         type: Sequelize.STRING(50),
         allowNull: false,
@@ -28,24 +32,6 @@ module.exports = {
         allowNull: false,
         defaultValue: "athlete",
       },
-      active: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
-        defaultValue: false,
-      },
-      purchase: {
-        type: Sequelize.DATE,
-      },
-      expiresIn: {
-        type: Sequelize.DATE,
-      },
-      planId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'plans',
-          key: 'id',
-        },
-      }
     });
   },
 

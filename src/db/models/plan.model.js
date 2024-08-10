@@ -1,14 +1,20 @@
 const buildPlanModel = (sequelize, DataTypes) => {
   const Plan = sequelize.define('Plans', {
-    name: DataTypes.STRING,
+    id: {
+      type: DataTypes.STRING,
+      primaryKey: true,
+    },
+    modality: DataTypes.ENUM('online', 'presencial'),
+    frequency: DataTypes.ENUM('anual', 'semestral', 'trimestral', 'mensal'),
+    type: DataTypes.STRING(45),
   }, {
     tableName: 'plans',
     timestamps: false,
   });
 
   Plan.associate = (models) => {
-    Plan.hasMany(models.Users,
-      { foreignKey: 'planId', as: 'users' });
+    Plan.hasMany(models.Signatures,
+      { foreignKey: 'planId', as: 'signatures' });
   };
 
   return Plan;

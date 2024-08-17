@@ -7,6 +7,7 @@ const buildPlanModel = (sequelize, DataTypes) => {
     modality: DataTypes.ENUM('online', 'presencial'),
     frequency: DataTypes.ENUM('anual', 'semestral', 'trimestral', 'mensal'),
     type: DataTypes.STRING(45),
+    value: DataTypes.INTEGER(),
   }, {
     tableName: 'plans',
     timestamps: false,

@@ -8,14 +8,14 @@ const showUsers = async () => {
 };
 
 const createUser = async (body) => {
-  const { name, email, password } = body;
+  const { name, lastName, email, password } = body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !lastName) {
     return { status: 'INVALID_VALUE', data: { message: 'Campos inválidos' } };
   }
 
   try {
-    const user = await Users.create({ name, password, email });
+    const user = await Users.create({ name, password, email, lastName });
     if (!user) return { status: 'INVALID_VALUE', data: { message: 'Não foi possível cadastrar' } };
  
     const data = { id: user.id, email: user.email, name: user.name };

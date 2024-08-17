@@ -7,6 +7,7 @@ module.exports = {
       id: {
         type: Sequelize.STRING,
         primaryKey: true,
+        allowNull: false,
       },
       active: {
         type: Sequelize.BOOLEAN,
@@ -30,7 +31,7 @@ module.exports = {
         onDelete: 'CASCADE',
       },
       userId: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: false,
         references: {
           model: 'users',

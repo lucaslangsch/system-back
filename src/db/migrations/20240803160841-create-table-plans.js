@@ -7,6 +7,7 @@ module.exports = {
       id: {
         type: Sequelize.STRING,
         primaryKey: true,
+        allowNull: false,
       },
       modality: {
         type: Sequelize.ENUM('online', 'presencial'),
@@ -20,6 +21,10 @@ module.exports = {
         type: Sequelize.STRING(45),
         allowNull: false,
       },
+      value: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      }
     });
   },
 

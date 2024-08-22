@@ -30,7 +30,7 @@ module.exports = {
       role: {
         type: Sequelize.STRING(10),
         allowNull: false,
-        defaultValue: "athlete",
+        defaultValue: "atleta",
       },
     });
   },

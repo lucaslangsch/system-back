@@ -6,12 +6,12 @@ const showPlans = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
-const showPrePlans = async (req, res) => {
-  const { status, data } = await planService.showPrePlans()
+const showPlan = async (req, res) => {
+  const { status, data } = await planService.showPlan(req)
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
 module.exports = {
   showPlans,
-  showPrePlans,
+  showPlan,
 };

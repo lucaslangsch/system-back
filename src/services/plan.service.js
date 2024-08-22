@@ -1,26 +1,28 @@
 const { Plans } = require('../db/models/index');
 
 const showPlans = async () => {
-  const plans = await Plans.findAll();
-  if (plans.length === 0) return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
-  return { status: 'SUCCESSFUL', data: plans };
+  try {
+    const plans = await Plans.findAll();
+    if (plans.length === 0) return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
+    return { status: 'SUCCESSFUL', data: plans };
+  } catch (error) {
+    return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
+  }
 };
 
-const showPrePlans = async () => {
-  const data = await fetch('https://api.mercadopago.com/preapproval_plan/search', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer APP_USR-879614550147882-073014-fb9ab524901da795736e328ca2610c59-1924574034'
-    },
-  });
-  const plans = await data.json()
-  console.log(plans)
-  if (plans.length === 0) return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
-  return { status: 'SUCCESSFUL', data: plans };
+const showPlan = async (req) => {
+  const { id } = req.params;
+  try {
+    const plan = await Plans.findByPk(id)
+    if (plan.length === 0) return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
+    return { status: 'SUCCESSFUL', data: plan };
+
+  } catch (error) {
+    return { status: 'NOT_FOUND', data: { message: 'Nenhum plano cadastrado' } };
+  }
 };
 
 module.exports = {
   showPlans,
-  showPrePlans
+  showPlan
 };

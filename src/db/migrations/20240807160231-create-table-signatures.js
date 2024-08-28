@@ -1,12 +1,15 @@
-'use strict';
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('signatures', {
       id: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
+        allowNull: false,
         primaryKey: true,
+        autoIncrement: true,
+      },
+      mercado_pago_id: {
+        type: Sequelize.STRING,
         allowNull: false,
       },
       active: {
@@ -14,14 +17,14 @@ module.exports = {
         allowNull: false,
         defaultValue: false,
       },
-      purchase: {
+      begin_at: {
         type: Sequelize.DATE,
       },
-      expiresIn: {
+      expires_at: {
         type: Sequelize.DATE,
       },
       planId: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
         references: {
           model: 'plans',
@@ -40,10 +43,20 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE',
       },
+      created_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
+      updated_at: {
+        type: Sequelize.DATE,
+        allowNull: false,
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      },
     });
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('signatures');
-  }
+  },
 };

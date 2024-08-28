@@ -31,14 +31,14 @@ const createUser = async (body) => {
   }
 
   try {
-    const user = await Users.create({ name, password, email, lastName });
+    const user = await Users.create({ name, password, email, last_name: lastName });
     if (!user) return { status: 'INVALID_VALUE', data: { message: 'Não foi possível cadastrar' } };
     const data = { id: user.id, email: user.email, name: user.name };
     const token = jwtUtils.createToken(data);
 
     return { status: 'SUCCESSFUL', data: { ...data, token } };
   } catch (error) {
-    return { status: 'INVALID_VALUE', data: { message: 'Email já cadastrado' } };
+    return { status: 'INVALID_VALUE', data: { message: error.message } };
   }
 };
 

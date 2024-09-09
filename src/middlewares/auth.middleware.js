@@ -5,8 +5,8 @@ const authMiddleware = (req, res, next) => {
 
     const { authorization } = req.headers;
     if (!authorization) {
-
-      res.status(401).json({ message: 'Acesso negado' });
+      console.log('PROIBIDO')
+      res.status(401).json({ message: 'Acesso negadoooo' });
     }
 
     const token = authorization.split(' ')[1];

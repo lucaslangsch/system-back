@@ -3,6 +3,6 @@ const { authMiddleware } = require('../middlewares')
 const { planController } = require('../controllers');
 
 route.get('/show', authMiddleware, planController.showPlans);
-route.get('/show/:id', planController.showPlan);
+route.get('/show/:id', authMiddleware, planController.showPlan);
 
 module.exports = route;

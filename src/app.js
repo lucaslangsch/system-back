@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { userRoutes, planRoutes } = require('./routes');
+const { userRoutes, planRoutes, paymentRoutes } = require('./routes');
 
 const app = express();
 
@@ -9,7 +9,8 @@ app.use(cors({
 }));
 
 app.use(express.json());
-app.use('/user', userRoutes)
-app.use('/plans', planRoutes)
+app.use('/user', userRoutes);
+app.use('/plans', planRoutes);
+app.use('/payment', paymentRoutes);
 
 module.exports = app;
